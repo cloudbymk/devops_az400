@@ -3,6 +3,9 @@ name: webapp-cicd
 on:
   workflow_dispatch:
 
+env:
+  AZURE_WEBAPP_NAME: 'webappdevopsmk'
+
 jobs:
   build:
     name: 'Build and Publish .NET Web App'
@@ -32,13 +35,13 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     environment:
-      name: webstore-prod
+      name: webapp-prod
         
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
         with:
-         name: webapp
+         name: webstore
         
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
